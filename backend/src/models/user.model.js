@@ -17,14 +17,10 @@ const userSchema = new mongoose.Schema(
             lowercase: true,
             index: true
         },
-        category: {
-            type: String,
-            enum: ["donor", "receiver"]
-        },
-        listings: [
+        trips: [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "Listing"
+                ref: "Trip"
             }
         ],
         password: {
@@ -70,8 +66,8 @@ userSchema.methods.generateRefreshToken = function () {
     const token = jwt.sign(
         {
             _id: this._id,
-            email: this.email,
-            name: this.name
+            // email: this.email,
+            // name: this.name
         },
         process.env.REFRESH_TOKEN_SECRET,
         {
